@@ -38,9 +38,8 @@ namespace OChart.InfoProvider {
                     if (!parent.Children.Contains(id)) {
                         throw new Exception($"parent of '{id}' is '{innerNode.Parent}' but that parent did not list '{id}' as a child");
                     }
-                    // All children that aren't me
-                    var tempSet = parent.Children.Where(p => p != id);
-                    innerNode.HasSiblings = tempSet.Count() > 0;
+                    // Is there a child of my parent that isn't me?  That would be a sibling
+                    innerNode.hasSiblings = parent.Children.Exists(p => p != id);
                 }
             }
             return innerNode;
