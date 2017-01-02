@@ -39,7 +39,7 @@ namespace OChart.InfoProvider {
                         throw new Exception($"parent of '{id}' is '{innerNode.Parent}' but that parent did not list '{id}' as a child");
                     }
                     // Is there a child of my parent that isn't me?  That would be a sibling
-                    innerNode.hasSiblings = parent.Children.Exists(p => p != id);
+                    innerNode.HasSiblings = parent.Children.Any(p => p != id);
                 }
             }
             return innerNode;

@@ -97,6 +97,8 @@ namespace OChart.Controllers {
                 srcNode.HasSiblings.Value ? "1" : "0",
                 srcNode.HasChildren ? "1" : "0");
 
+            result.className = srcNode.Division;
+
             // If being asked for a parent node, fill in the child nodes
             var asParent = result as ChartNodeParent;
             if (asParent != null) {

@@ -29,11 +29,22 @@ namespace OChart.InfoProvider {
         }
 
         /// <summary>
-        /// THe job title (node content) that this node has
+        /// The job title (node content) that this node has
         /// </summary>
         public string Title {
             get;
             set;
+        }
+
+        /// <summary>
+        /// The division that this node belongs to.  Becomes the CSSClass of the
+        /// node generated.
+        /// </summary>
+        /// <remarks>
+        /// allows different nodes to have different colours
+        /// </remarks>
+        public string Division {
+            get; set;
         }
 
         private HashSet<string> children_ = new HashSet<string>();

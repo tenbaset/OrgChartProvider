@@ -18,6 +18,7 @@ namespace OChart.InfoProvider {
                         Name = "1 Su Miao",
                         Title = "General Manager",
                         Parent = "6",
+                        Division = "Fishing",
                         Children = new HashSet<string> { "2", "3" }
                     };
                 case "2":
@@ -25,6 +26,7 @@ namespace OChart.InfoProvider {
                         Id = "2",
                         Name = "2 Tie Hua",
                         Title = "senior engineer",
+                        Division = "Fishing",
                         Parent = "1"
                     };
                 case "3":
@@ -33,6 +35,7 @@ namespace OChart.InfoProvider {
                         Name = "3 Hei Hei",
                         Title = "senior engineer",
                         Parent = "1",
+                        Division = "Sales",
                         Children = new HashSet<string> { "4", "5" }
                     };
                 case "4":
@@ -41,6 +44,7 @@ namespace OChart.InfoProvider {
                         Name = "4 Pang Pang",
                         Title = "engineer",
                         Parent = "3",
+                        Division = "Sales",
                         Children = new HashSet<string> { }
                     };
                 case "5":
@@ -49,6 +53,7 @@ namespace OChart.InfoProvider {
                         Name = "5 Xiang Xiang",
                         Title = "UE engineer",
                         Parent = "3",
+                        Division = "Engineering",
                         Children = new HashSet<string> { }
                     };
                 case "6":
@@ -57,6 +62,7 @@ namespace OChart.InfoProvider {
                         Name = "6 Lao Lao",
                         Title = "general manager",
                         Parent = null,
+                        Division = "Sales",
                         Children = new HashSet<string> { "1", "7" }
                     };
                 case "7":
@@ -65,6 +71,7 @@ namespace OChart.InfoProvider {
                         Name = "7 Bo Miao",
                         Title = "department engineer",
                         Parent = "6",
+                        Division = "Fishing",
                         Children = new HashSet<string> { }
                     };
             }

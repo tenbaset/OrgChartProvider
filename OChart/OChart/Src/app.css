@@ -1,0 +1,18 @@
+﻿.orgchart .Fishing .title {
+  background-color: #006699;
+}
+.orgchart .Fishing .content {
+  border-color: #006699;
+}
+.orgchart .Sales .title {
+  background-color: #009933;
+}
+.orgchart .Sales .content {
+  border-color: #009933;
+}
+.orgchart .Engineering .title {
+  background-color: #993366;
+}
+.orgchart .Engineering .content {
+  border-color: #993366;
+}

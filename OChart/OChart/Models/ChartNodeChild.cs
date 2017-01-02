@@ -26,5 +26,14 @@ namespace OChart.Models {
             set;
 
         }
+
+        /// <summary>
+        /// CSS Class name that is fed from the department
+        /// </summary>
+        public string className {
+            get;
+            set;
+        }
+
     }
 }
