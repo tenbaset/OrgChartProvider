@@ -35,5 +35,19 @@ namespace OChart.Models {
             set;
         }
 
+        public string photourl {
+            get;
+            set;
+        }
+
+        public string department {
+            get;
+            set;
+        }
+
+        public string office {
+            get; set;
+        }
+
     }
 }

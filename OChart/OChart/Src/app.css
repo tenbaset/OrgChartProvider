@@ -1,18 +1,66 @@
 ﻿.orgchart .Fishing .title {
-  background-color: #006699;
+    background-color: #006699;
 }
+
 .orgchart .Fishing .content {
-  border-color: #006699;
+    border-color: #006699;
 }
+
 .orgchart .Sales .title {
-  background-color: #009933;
+    background-color: #009933;
 }
+
 .orgchart .Sales .content {
-  border-color: #009933;
+    border-color: #009933;
 }
+
 .orgchart .Engineering .title {
-  background-color: #993366;
+    background-color: #993366;
 }
+
 .orgchart .Engineering .content {
-  border-color: #993366;
+    border-color: #993366;
+}
+
+
+/* */
+.orgchart .second-menu-icon {
+    transition: opacity .5s;
+    opacity: 0;
+    right: -5px;
+    top: -5px;
+    z-index: 2;
+    color: rgba(68, 157, 68, 0.5);
+    font-size: 18px;
+    position: absolute;
+}
+
+.orgchart .second-menu-icon:hover {
+    color: #449d44;
+}
+
+.orgchart .node:hover .second-menu-icon {
+    opacity: 1;
+}
+
+.orgchart .node .second-menu {
+    display: none;
+    position: absolute;
+    top: 1rem;
+    right: -70px;
+    border-radius: 1px;
+    box-shadow: 0 0 10px 1px #999;
+    background-color: #fff;
+    z-index: 1;
+    font-size: 1.2rem;
+    text-align: left;
+    min-width:20rem
+}
+
+.orgchart .node .second-menu .avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 0px;
+    float: left;
+    margin: 5px;
 }

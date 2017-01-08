@@ -49,5 +49,33 @@ $('#chart-container').orgchart({
     'nodeContent': 'title',
     'nodeId': 'id',
     'toggleSiblingsResp': true,
-    'pan': true
+    'pan': true,
+
+    'createNode': function ($node, data) {
+        var secondMenuIcon = $('<i>', {
+            'class': 'fa fa-info-circle second-menu-icon',
+            click: function () {
+                $(this).siblings('.second-menu').toggle();
+            }
+        });
+        var secondMenu = '<div class="second-menu">';
+        if (data.photourl) {
+            secondMenu = secondMenu + '<img class="avatar" src="' + data.photourl + '">';
+        }
+        secondMenu = secondMenu + '<div><strong>' + data.name + '</strong></div>'
+        secondMenu = secondMenu + '<div>' + data.title + '</div>'
+        if (data.department || data.office) {
+            let department = data.department;
+            if (!department) { department = "" };
+            let office = data.office;
+            if (!office) { office = "" };
+            secondMenu = secondMenu + '<div><strong>' + department + '</strong> ' + office + '</div>'
+        }
+        secondMenu = secondMenu + '</div>';
+
+
+        $node.append(secondMenuIcon).append(secondMenu);
+    }
+
+
 });

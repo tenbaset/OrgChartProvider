@@ -46,8 +46,13 @@ namespace OChart.InfoProvider {
         public string Division {
             get; set;
         }
+        public string Office {
+            get;
+            set;
+        }
 
         private HashSet<string> children_ = new HashSet<string>();
+
         /// <summary>
         /// IDs of the children nodes of this node.  If required, the provider will be automatically
         /// asked for the details of each of these children.
@@ -104,6 +109,11 @@ namespace OChart.InfoProvider {
             }
         }
 
+        // Extra information for the pop-up
+        public string PhotoURL {
+            get;
+            set;
+        }
 
 
     }

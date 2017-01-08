@@ -98,6 +98,9 @@ namespace OChart.Controllers {
                 srcNode.HasChildren ? "1" : "0");
 
             result.className = srcNode.Division;
+            result.photourl = srcNode.PhotoURL;
+            result.department = srcNode.Division;
+            result.office  = srcNode.Office;
 
             // If being asked for a parent node, fill in the child nodes
             var asParent = result as ChartNodeParent;

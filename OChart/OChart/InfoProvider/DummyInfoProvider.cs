@@ -19,6 +19,7 @@ namespace OChart.InfoProvider {
                         Title = "General Manager",
                         Parent = "6",
                         Division = "Fishing",
+                        PhotoURL = "photos/x.jpg",
                         Children = new HashSet<string> { "2", "3" }
                     };
                 case "2":
