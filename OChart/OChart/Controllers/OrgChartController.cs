@@ -1,4 +1,5 @@
-﻿using OChart.Models;
+﻿using OChart.InfoProvider;
+using OChart.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -30,7 +31,7 @@ namespace OChart.Controllers {
             if (infoProvider is IInfoProviderW) {
                 this.infoProvider = provider as IInfoProviderW;
             } else {
-                this.infoProvider = new InfoProvider.InfoProviderAdapter(provider);
+                this.infoProvider = new InfoProvider.InfoProviderAdapter(new InfoProviderCacheLayer(provider));
             }
 
         }
