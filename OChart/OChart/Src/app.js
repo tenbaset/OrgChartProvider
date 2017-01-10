@@ -72,8 +72,6 @@ $('#chart-container').orgchart({
             secondMenu = secondMenu + '<div><strong>' + department + '</strong> ' + office + '</div>'
         }
         secondMenu = secondMenu + '</div>';
-    
-
         $node.append(secondMenuIcon).append(secondMenu);
     }
 

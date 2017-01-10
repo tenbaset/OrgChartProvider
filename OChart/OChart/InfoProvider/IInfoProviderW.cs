@@ -11,7 +11,7 @@ public interface IInfoProviderW : IInfoProvider {
     /// </summary>
     /// <param name="childId">ID of the child node</param>
     /// <returns>Parent ID</returns>
-     string GetParentId(string childId);
+    string GetParentId(string childId);
 
 
 

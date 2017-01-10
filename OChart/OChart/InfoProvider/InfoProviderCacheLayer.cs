@@ -6,8 +6,8 @@ using System.Web;
 namespace OChart.InfoProvider {
 
     /// <summary>
-    /// Wraps an IInfoProvider implementation with storing data in the ASP.Net caching
-    /// engine, with a time-out (30 minute by default).
+    /// Wraps an IInfoProvider implementation with storing data in the ASP.Net caching engine, with
+    /// a time-out (30 minute by default).
     /// </summary>
 
     public class InfoProviderCacheLayer : IInfoProvider {
@@ -32,7 +32,6 @@ namespace OChart.InfoProvider {
             set {
                 CacheLifetime_ = value;
             }
-
         }
 
         /// <summary>
@@ -42,7 +41,6 @@ namespace OChart.InfoProvider {
         public InfoProviderCacheLayer(IInfoProvider innerProvider) {
             this.InnerProvider = innerProvider;
         }
-
 
         InfoProviderNode IInfoProvider.GetNode(string id) {
             var cache = System.Runtime.Caching.MemoryCache.Default;
@@ -58,7 +56,7 @@ namespace OChart.InfoProvider {
 
         string IInfoProvider.GetRootId() {
             var cache = System.Runtime.Caching.MemoryCache.Default;
-            var key = "INodeRootId" ;
+            var key = "INodeRootId";
 
             var cacheValue = (string)cache[key];
             if (cacheValue == null) {

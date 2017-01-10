@@ -54,7 +54,7 @@
     z-index: 1;
     font-size: 1.2rem;
     text-align: left;
-    min-width:20rem
+    min-width: 20rem;
 }
 
 .orgchart .node .second-menu .avatar {

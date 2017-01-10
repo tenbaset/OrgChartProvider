@@ -9,7 +9,8 @@ using System.Net.Http;
 using System.Web.Http;
 
 
-// using attribute routing https://www.asp.net/web-api/overview/web-api-routing-and-actions/attribute-routing-in-web-api-2
+// using attribute routing
+// https://www.asp.net/web-api/overview/web-api-routing-and-actions/attribute-routing-in-web-api-2
 
 namespace OChart.Controllers {
     public class OrgChartController : ApiController {
@@ -39,8 +40,8 @@ namespace OChart.Controllers {
         [Route("orgchart/children/{id}")]
         [HttpGet]
         public Models.ChildrenResult children(string id) {
-            // Demos seem to be a small JSON object with a single property Children containing
-            // an array; hence returning a ChildrenResult
+            // Demos seem to be a small JSON object with a single property Children containing an
+            // array; hence returning a ChildrenResult
 
             var srcData = MakeChartNode<ChartNodeParent>(id);
             return new Models.ChildrenResult() { children = srcData.children };
@@ -49,7 +50,8 @@ namespace OChart.Controllers {
         [Route("orgchart/parent/{id}")]
         [HttpGet]
         public ChartNodeChild parent(string id) {
-            // Parent: Get the truncated information (sans children) of the parent node of selected node.
+            // Parent: Get the truncated information (sans children) of the parent node of selected
+            // node.
             var parentId = infoProvider.GetParentId(id);
             return MakeChartNode<ChartNodeChild>(parentId);
         }
@@ -101,7 +103,7 @@ namespace OChart.Controllers {
             result.className = srcNode.Division;
             result.photourl = srcNode.PhotoURL;
             result.department = srcNode.Division;
-            result.office  = srcNode.Office;
+            result.office = srcNode.Office;
 
             // If being asked for a parent node, fill in the child nodes
             var asParent = result as ChartNodeParent;

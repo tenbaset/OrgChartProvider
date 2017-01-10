@@ -13,7 +13,8 @@ namespace OChart.InfoProvider {
     public class InfoProviderNode {
 
         /// <summary>
-        /// Unique ID for this node - should be unique (e.g., AD GUID, row number, employee ID, SID).  Should never be null.
+        /// Unique ID for this node - should be unique (e.g., AD GUID, row number, employee ID,
+        /// SID).  Should never be null.
         /// </summary>
         public string Id {
             get;
@@ -37,8 +38,7 @@ namespace OChart.InfoProvider {
         }
 
         /// <summary>
-        /// The division that this node belongs to.  Becomes the CSSClass of the
-        /// node generated.
+        /// The division that this node belongs to.  Becomes the CSSClass of the node generated.
         /// </summary>
         /// <remarks>
         /// allows different nodes to have different colours
@@ -58,8 +58,8 @@ namespace OChart.InfoProvider {
         /// asked for the details of each of these children.
         /// </summary>
         /// <remarks>
-        /// Should always be a unique set and not contain duplicates.  Order is not preserved.  If there
-        /// are no children, then this should be an empty set
+        /// Should always be a unique set and not contain duplicates.  Order is not preserved.  If
+        /// there are no children, then this should be an empty set
         /// </remarks>
         public ISet<string> Children {
             get {

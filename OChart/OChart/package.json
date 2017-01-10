@@ -4,7 +4,7 @@
   "dependencies": {
     "orgchart": "^1.3.1",
     "jquery": "^3.1.1",
-    "bootstrap" : "^3"
+    "bootstrap": "^3"
   },
   "devDependencies": {
   }

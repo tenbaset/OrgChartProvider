@@ -1,8 +1,8 @@
 ﻿using OChart.InfoProvider;
 /// <summary>
-/// Restricted interface that should be implemented by an info provider plug in.  If straightforward,
-/// should implement the IInfoProviderW interface instead of this one.  However, there is an adapter
-/// so don't implement your own 'adapter' type system.
+/// Restricted interface that should be implemented by an info provider plug in.  If
+/// straightforward, should implement the IInfoProviderW interface instead of this one.  However,
+/// there is an adapter so don't implement your own 'adapter' type system.
 /// </summary>
 public interface IInfoProvider {
 
