@@ -15,26 +15,24 @@ using System.Web.Http;
 namespace OChart.Controllers {
     public class OrgChartController : ApiController {
 
-        public IInfoProviderW infoProvider;
-
-        public OrgChartController() {
-            // awful, but this is currently where you configure in your own implementation
-            // of IInfoProvider
-            var p = new InfoProvider.DummyInfoProvider();
-            // Caching is a good idea as the info provider will issue near-duplicate requests
-            this.SetInfoProvider(new InfoProviderCacheLayer(p));
-        }
+        /// <summary>
+        /// The currently configured info provider.
+        /// </summary>
+        private static IInfoProviderW infoProvider;
 
         /// <summary>
         /// Sets the info provider, automatically upgrading an IInfoProvider to a IInfoProviderW by
         /// using an adapter if required.
         /// </summary>
-        /// <param name="provider"></param>
-        public void SetInfoProvider(IInfoProvider provider) {
-            if (infoProvider is IInfoProviderW) {
-                this.infoProvider = provider as IInfoProviderW;
+        /// <param name="provider">Provider to configure onto</param>
+        /// <remarks>
+        /// Currently called by WebApiConfig.cs.  Ideally should follow the Web.api configuration
+        /// conventions - anyone want to take a go at that?</remarks>
+        public static void SetInfoProvider(IInfoProvider provider) {
+            if (provider is IInfoProviderW) {
+                infoProvider = provider as IInfoProviderW;
             } else {
-                this.infoProvider = new InfoProvider.InfoProviderAdapter(provider);
+                infoProvider = new InfoProvider.InfoProviderAdapter(provider);
             }
 
         }

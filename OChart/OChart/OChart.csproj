@@ -114,6 +114,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="InfoProvider\ADInfoProvider.cs" />
+    <Compile Include="InfoProvider\DBInfoProvider.cs" />
     <Compile Include="InfoProvider\DummyInfoProvider.cs" />
     <Compile Include="InfoProvider\IInfoProvider.cs" />
     <Compile Include="InfoProvider\IInfoProviderW.cs" />
