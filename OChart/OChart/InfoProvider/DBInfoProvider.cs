@@ -4,6 +4,10 @@ using System.Linq;
 using System.Web;
 
 namespace OChart.InfoProvider {
+
+    /// <summary>
+    /// Example DB-based provider
+    /// </summary>
     public class DBInfoProvider : IInfoProvider {
         InfoProviderNode IInfoProvider.GetNode(string id) {
             // connect to database

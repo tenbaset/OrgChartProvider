@@ -7,6 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OChart", "OChart\OChart.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CEDE973F-A892-4834-B22C-2242E327F9B5}"
 	ProjectSection(SolutionItems) = preProject
+		howto.md = howto.md
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject

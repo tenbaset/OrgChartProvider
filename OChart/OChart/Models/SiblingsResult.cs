@@ -7,6 +7,7 @@ namespace OChart.Models {
 
     /// <summary>
     /// JSON serialising result of calling for siblings from a node
+    /// Mimics schema of OrgChart examples.
     /// </summary>
     public class SiblingsResult {
         public SiblingsResult() {

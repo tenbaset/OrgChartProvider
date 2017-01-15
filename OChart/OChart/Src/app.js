@@ -1,4 +1,5 @@
-﻿
+﻿// Based on examples from @dabeng.  Note that these URLs all point into the OrgChartConroller in the
+// web api.
 var ajaxURLs = {
     'children': '/orgchart/children/',
     'parent': '/orgchart/parent/',
