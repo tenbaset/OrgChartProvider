@@ -9,6 +9,11 @@ namespace OChart.InfoProvider {
     /// Wraps an IInfoProvider implementation with storing data in the ASP.Net caching engine, with
     /// a time-out (30 minute by default).
     /// </summary>
+    /// <remarks>
+    /// Note that the InfoProvider may trigger a few 'redundant' queries (e.g., to get siblings of a
+    /// node, it will automatically get the parent of a node and then look at the children.)  To
+    /// combat any inefficiencies, this will cache results.
+    /// </remarks>
 
     public class InfoProviderCacheLayer : IInfoProvider {
 
@@ -18,7 +23,6 @@ namespace OChart.InfoProvider {
         public IInfoProvider InnerProvider {
             get; set;
         }
-
 
         private TimeSpan CacheLifetime_ = new TimeSpan(hours: 0, minutes: 30, seconds: 0);
 
@@ -42,6 +46,11 @@ namespace OChart.InfoProvider {
             this.InnerProvider = innerProvider;
         }
 
+        /// <summary>
+        /// Gets a node, either from the cache or from the inner provider
+        /// </summary>
+        /// <param name="id">Node ID</param>
+        /// <returns>Node</returns>
         InfoProviderNode IInfoProvider.GetNode(string id) {
             var cache = System.Runtime.Caching.MemoryCache.Default;
             var key = "INode" + id;
@@ -54,6 +63,11 @@ namespace OChart.InfoProvider {
             return cacheValue;
         }
 
+
+        /// <summary>
+        /// Gets the root node id, either from the cache or from the inner provider
+        /// </summary>
+        /// <returns></returns>
         string IInfoProvider.GetRootId() {
             var cache = System.Runtime.Caching.MemoryCache.Default;
             var key = "INodeRootId";

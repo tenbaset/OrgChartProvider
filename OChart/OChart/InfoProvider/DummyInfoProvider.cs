@@ -6,7 +6,7 @@ using System.Web;
 namespace OChart.InfoProvider {
     public class DummyInfoProvider : IInfoProvider {
         public string GetRootId() {
-            return "6";
+            return "5";
         }
 
 

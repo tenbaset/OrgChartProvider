@@ -18,9 +18,11 @@ namespace OChart.Controllers {
         public IInfoProviderW infoProvider;
 
         public OrgChartController() {
-            // aweful
+            // awful, but this is currently where you configure in your own implementation
+            // of IInfoProvider
             var p = new InfoProvider.DummyInfoProvider();
-            this.SetInfoProvider(p);
+            // Caching is a good idea as the info provider will issue near-duplicate requests
+            this.SetInfoProvider(new InfoProviderCacheLayer(p));
         }
 
         /// <summary>
@@ -32,7 +34,7 @@ namespace OChart.Controllers {
             if (infoProvider is IInfoProviderW) {
                 this.infoProvider = provider as IInfoProviderW;
             } else {
-                this.infoProvider = new InfoProvider.InfoProviderAdapter(new InfoProviderCacheLayer(provider));
+                this.infoProvider = new InfoProvider.InfoProviderAdapter(provider);
             }
 
         }
@@ -64,7 +66,6 @@ namespace OChart.Controllers {
             // Demo data excludes 'self' from the sibling data.
             var sibs = srcData.children.Where(p => p.id != id).ToList();
             return new Models.SiblingsResult() { siblings = sibs };
-
         }
 
         [Route("orgchart/families/{id}")]
@@ -87,9 +88,26 @@ namespace OChart.Controllers {
             return MakeChartNode<ChartNodeParent>(rootId);
         }
 
+        /// <summary>
+        /// Gets data about a node based on its id
+        /// </summary>
+        /// <param name="id">id of the node to return data for</param>
+        /// <returns>Information about that node</returns>
+        /// <remarks>
+        /// Not directly called by the OrgChart framework - it's here so it can be used instead of
+        /// initdata.  The difference between the two is initdata asks the provider for the root id
+        /// and returns information about THAT node, this expects the HTML or JS to pass the root id
+        /// directly in.  Maybe the start 'id' for the tree is already known in the JavaScript / web
+        /// data from another link?
+        /// </remarks>
+        [Route("orgchart/data/{id}")]
+        [HttpGet]
+        public Models.ChartNodeParent data(string id) {
+            return MakeChartNode<ChartNodeParent>(id);
+        }
+
         private T MakeChartNode<T>(string id) where T : ChartNodeChild, new() {
             var srcNode = infoProvider.GetNode(id);
-            // this could be an automapper call?
             var result = new T();
             result.id = srcNode.Id;
             result.name = srcNode.Name;
@@ -102,7 +120,7 @@ namespace OChart.Controllers {
 
             result.className = srcNode.Division;
             result.photourl = srcNode.PhotoURL;
-            result.department = srcNode.Division;
+            result.division = srcNode.Division;
             result.office = srcNode.Office;
 
             // If being asked for a parent node, fill in the child nodes

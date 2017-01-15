@@ -46,6 +46,10 @@ namespace OChart.InfoProvider {
         public string Division {
             get; set;
         }
+
+        /// <summary>
+        /// Office / location that this node belongs to.  Appears on the supplemental display.
+        /// </summary>
         public string Office {
             get;
             set;
@@ -82,34 +86,44 @@ namespace OChart.InfoProvider {
 
         /// <summary>
         /// Whether this node has sibling nodes (other nodes with the same parent).  True for yes,
-        /// False for no, and leave as null for unknown.
+        /// False for no, and leave as null for unknown.  Will be inferred if required - see
+        /// remarks.
         /// </summary>
         /// <remarks>
         /// Implementations of IInfoProvider are not required to fill this field in (i.e., it can be
         /// left null), but implementations of IInfoProviderW must fill this in (i.e., cannot leave
         /// it null).
         ///
-        /// If it is null, IInfoProvider will be queried for 'children of the parent' to determine
-        /// whether there are siblings or not.
+        /// If it is null, IInfoProvider will be queried (By InfoProviderAdapter) for 'children of
+        /// the parent' to determine whether there are siblings or not.
         /// </remarks>
         public bool? HasSiblings {
             get;
             set;
         }
 
+        /// <summary>
+        /// Whether this node has a parent.
+        /// </summary>
         public bool HasParent {
             get {
                 return this.Parent != null;
             }
         }
 
+        /// <summary>
+        /// Whether there are children of this node
+        /// </summary>
         public bool HasChildren {
             get {
                 return this.children_.Count > 0;
             }
         }
 
-        // Extra information for the pop-up
+        /// <summary>
+        /// URL for the photo for this node - used in the pop-up display.  Leave as null
+        /// if there is no photo.
+        /// </summary>
         public string PhotoURL {
             get;
             set;
