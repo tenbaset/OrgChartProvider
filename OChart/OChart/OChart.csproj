@@ -19,8 +19,8 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
+    <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -100,6 +100,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Database1.mdf" />
+    <Content Include="App_Data\Database1_log.ldf">
+      <DependentUpon>Database1.mdf</DependentUpon>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="Photos\x.jpg" />
@@ -114,24 +118,35 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="InfoProvider\ADInfoProvider.cs" />
+    <Compile Include="InfoProvider\ADInfoProviderAuto.cs" />
     <Compile Include="InfoProvider\DBInfoProvider.cs" />
     <Compile Include="InfoProvider\DummyInfoProvider.cs" />
     <Compile Include="InfoProvider\IInfoProvider.cs" />
     <Compile Include="InfoProvider\IInfoProviderW.cs" />
     <Compile Include="InfoProvider\InfoProviderAdapter.cs" />
     <Compile Include="InfoProvider\InfoProviderCacheLayer.cs" />
+    <Compile Include="InfoProvider\InfoProviderCacheLayerNoRoot.cs" />
     <Compile Include="InfoProvider\InfoProviderNode.cs" />
     <Compile Include="Models\ChartNodeChild.cs" />
     <Compile Include="Models\ChartNodeParent.cs" />
     <Compile Include="Models\childrenResult.cs" />
     <Compile Include="Models\SiblingsResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="package.json" />
     <Content Include="Src\app.css" />
     <Content Include=".editorconfig" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -139,9 +154,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
