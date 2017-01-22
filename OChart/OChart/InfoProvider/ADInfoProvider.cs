@@ -23,8 +23,10 @@ namespace OChart.InfoProvider {
         }
 
         public string GetRootId() {
-            var mySearcher = new System.DirectoryServices.DirectorySearcher();
-            mySearcher.Filter = ("(objectClass=user)");
+            // var mySearcher = new System.DirectoryServices.DirectorySearcher();
+            //            mySearcher.Filter = ("(objectClass=user)");
+
+
 
             throw new NotImplementedException();
         }
