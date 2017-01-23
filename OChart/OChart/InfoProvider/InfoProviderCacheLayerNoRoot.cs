@@ -59,6 +59,7 @@ namespace OChart.InfoProvider {
             var cacheValue = (InfoProviderNode)cache[key];
             if (cacheValue == null) {
                 cacheValue = InnerProvider.GetNode(id);
+                if (cacheValue == null) { return null; } // Can't cache nulls
                 cache.Add(key, cacheValue, DateTimeOffset.Now + CacheLifetime);
             }
             return cacheValue;

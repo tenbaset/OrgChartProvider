@@ -11,7 +11,7 @@ namespace OChart.InfoProvider {
     public class ADInfoProvider : IInfoProvider {
         //<https://social.msdn.microsoft.com/Forums/vstudio/en-US/729d1214-37f5-4330-9208-bc4d9d695ad0/querying-adctive-directory-with-ldap-in-c?forum=netfxbcl>
 
-        public InfoProviderNode GetNode(string id) {
+        public virtual InfoProviderNode GetNode(string id) {
             using (var mySearcher = new System.DirectoryServices.DirectorySearcher()) {
                 mySearcher.Filter = ("(objectClass=user)(");
                 using (var results = mySearcher.FindAll()) {
@@ -22,7 +22,7 @@ namespace OChart.InfoProvider {
             throw new NotImplementedException();
         }
 
-        public string GetRootId() {
+        public virtual string GetRootId() {
             // var mySearcher = new System.DirectoryServices.DirectorySearcher();
             //            mySearcher.Filter = ("(objectClass=user)");
 

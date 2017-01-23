@@ -11,7 +11,7 @@ namespace OChart.InfoProvider {
     /// starting with the user identity.  NB: If you cache this, I recommend
     /// using the InfoProviderCacheLayerNoRoot instead of the normal cache layer.
     /// </summary>
-    public class ADInfoProviderAuto : IInfoProvider {
+    public class ADInfoProviderAuto : ADInfoProvider {
 
         //<https://social.msdn.microsoft.com/Forums/vstudio/en-US/729d1214-37f5-4330-9208-bc4d9d695ad0/querying-adctive-directory-with-ldap-in-c?forum=netfxbcl>
 
@@ -25,64 +25,67 @@ namespace OChart.InfoProvider {
         /// </summary>
         /// <param name="dn"></param>
         /// <returns></returns>
-        protected String GetNativeGuidForDN(string dn) {
+        protected String GetGUIDForDN(string dn) {
             var cache = System.Runtime.Caching.MemoryCache.Default;
             var key = "S4D" + dn;
 
             var cacheValue = (string)cache[key];
             if (cacheValue == null) {
-                using (var de = new DirectoryEntry(dn)) {
-                    cacheValue = de.NativeGuid;
+                using (var de = new DirectoryEntry($"LDAP://{dn}")) {
+                    cacheValue = de.Guid.ToString();
                     cache.Add(key, cacheValue, DateTimeOffset.Now + CacheLifetime);
                 }
             }
             return cacheValue;
         }
 
-        public InfoProviderNode GetNode(string id) {
+
+        // TODO: Move to parent class.
+        public override InfoProviderNode GetNode(string id) {
             var result = new InfoProviderNode();
+            // Bind by GUID
+            var directoryEntry = new DirectoryEntry($"LDAP://<GUID={id}>");
+            result.Id = directoryEntry.Guid.ToString();
+            result.Name = (string)directoryEntry.Properties["name"].Value;
 
-            using (var mySearcher = new System.DirectoryServices.DirectorySearcher()) {
-                mySearcher.Filter = $"(objectGUID={id})";
-                var adSearchResult = mySearcher.FindOne()?.GetDirectoryEntry();
-                if ((adSearchResult == null)) {
-                    return null;
+            // The DN of the manager is stored in A.D., but we
+            // really want the samAccountName for said manager.
+            var managerDn = (string)directoryEntry.Properties["manager"].Value;
+            result.Parent = string.IsNullOrEmpty(managerDn) ? null : GetGUIDForDN(managerDn).ToString();
 
+            result.Title = (string)directoryEntry.Properties["title"].Value;
+            result.Office = (string)directoryEntry.Properties["physicalDeliveryOfficeName"].Value;
+
+            var directReports = directoryEntry.Properties["directReports"];
+            if (directReports != null) {
+                foreach (string child in directReports) {
+                    var childGUID = GetGUIDForDN(child);
+                    result.Children.Add(childGUID);
                 }
-                result.Id = adSearchResult.NativeGuid;
-                result.Name = "name goes here";
-
-                // The DN of the manager is stored in A.D., but we
-                // really want the samAccountName for said manager.
-                var managerDn = (string)adSearchResult?.Properties?["manager"]?[0];
-                result.Parent = string.IsNullOrEmpty(managerDn) ? null : GetNativeGuidForDN(managerDn).ToString();
-
-                result.Title = "title";
-                result.Office = "office";
-                result.PhotoURL = "discover exchange";
             }
 
-            return result;
+            //    result.PhotoURL = "discover exchange";
 
+            return result;
         }
 
+        // NB read <<https://msdn.microsoft.com/en-us/library/ms677645(v=vs.85).aspx>> and
+        // <<https://msdn.microsoft.com/en-us/library/ms677985(v=vs.85).aspx>> for how to handle the blasted
+        // GUIDs.
+
         /// <summary>
-        /// Gets the root id - the NativeGUID of the currently authenticated user
+        /// Gets the root id - the GUID of the currently authenticated user
         /// </summary>
         /// <returns></returns>
-        public string GetRootId() {
+        public override string GetRootId() {
             if (HttpContext.Current.User.Identity.IsAuthenticated) {
                 // Code take from http://stackoverflow.com/questions/315403/getting-authenticate-ad-users-objectguid-from-asp-net
 
                 var userIdentity = HttpContext.Current.User.Identity;
-
-                //Split the username into domain and userid parts
-                var domainName = userIdentity.Name.Substring(0, userIdentity.Name.IndexOf("\\"));
                 var userId = userIdentity.Name.Substring(userIdentity.Name.IndexOf("\\") + 1);
 
                 // Start at the top level domain
-                var entry = new DirectoryEntry(domainName);
-                var mySearcher = new DirectorySearcher(entry);
+                var mySearcher = new DirectorySearcher();
 
                 // Build a filter for just the user
                 mySearcher.Filter = $"(&(anr={userId})(objectClass=user))";
@@ -90,7 +93,7 @@ namespace OChart.InfoProvider {
                 // Get the search result ...
                 //... and then get the AD entry that goes with it
                 // The Guid property is the objectGuid
-                return mySearcher.FindOne().GetDirectoryEntry().NativeGuid;
+                return mySearcher.FindOne().GetDirectoryEntry().Guid.ToString();
             } else {
                 return string.Empty;
             }
